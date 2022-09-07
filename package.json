@@ -1,0 +1,21 @@
+{
+  "name": "frontend-project-12",
+  "version": "1.0.0",
+  "description": "[![Actions Status](https://github.com/AnastasiaKv/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/AnastasiaKv/frontend-project-12/actions)",
+  "main": "index.js",
+  "scripts": {
+    "start": "make start",
+    "heroku-prebuild": "make -C backend install && make -C frontend install",
+    "build": "make -C frontend build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnastasiaKv/frontend-project-12.git"
+  },
+  "author": "AnastasiaKv",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnastasiaKv/frontend-project-12/issues"
+  },
+  "homepage": "https://github.com/AnastasiaKv/frontend-project-12#readme"
+}
