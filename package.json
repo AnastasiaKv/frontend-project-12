@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "make start",
-    "heroku-prebuild": "make -C backend install && make -C frontend install",
+    "postinstall": "make -C backend install && make -C frontend install",
     "build": "make -C frontend build"
   },
   "repository": {
