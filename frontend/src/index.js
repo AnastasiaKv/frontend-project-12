@@ -1,6 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/App';
+import usePromise from 'react-promise';
+import './assets/index.scss';
+import init from './init';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+const InitApp = () => {
+  const { value, loading } = usePromise(init);
+  return loading ? null : value;
+};
+
+const root = ReactDOM.createRoot(document.getElementById('chat'));
+root.render(<InitApp />);
