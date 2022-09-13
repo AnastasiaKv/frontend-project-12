@@ -11,11 +11,6 @@ import useAuth from '../hooks';
 import routes from '../routes';
 import avatar from '../assets/avatar.jpg';
 
-const generateSchema = () => yup.object({
-  username: yup.string().required(),
-  password: yup.string().required(),
-});
-
 const LoginPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -28,24 +23,27 @@ const LoginPage = () => {
     inputRef.current.focus();
   }, []);
 
-  const authorization = async (values) => {
-    const { data } = await axios.post(routes.loginPath(), values);
-    localStorage.setItem('userId', JSON.stringify(data));
-    auth.logIn();
-    navigate('/');
-  };
-
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
     },
+    validationSchema: yup.object({
+      username: yup.string().required('Required'),
+      password: yup.string().required('Required'),
+    }),
     onSubmit: (values) => {
       setAuthFailed(false);
-
-      generateSchema().validate(values)
-        .then(() => authorization(values))
-        .catch(() => {
+      axios.post(routes.loginPath(), values)
+        .then(({ data }) => {
+          localStorage.setItem('userId', JSON.stringify(data));
+          auth.logIn();
+          navigate('/');
+        })
+        .catch((error) => {
+          if (error.isAxiosError && !error.response.status === 401) {
+            throw error;
+          }
           formik.setSubmitting(false);
           setAuthFailed(true);
           inputRef.current.select();
