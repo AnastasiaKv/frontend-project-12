@@ -8,7 +8,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import {
-  Button, Navbar, Container, Col, Row,
+  Button, Navbar, Container,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import RegistrationPage from './RegistrationPage';
@@ -67,25 +67,19 @@ const App = () => (
           </Container>
         </Navbar>
 
-        <Container fluid className="h-100">
-          <Row className="justify-content-center align-content-center h-100">
-            <Col xs="12" md="8" xxl="6">
-              <Routes>
-                <Route
-                  path="/"
-                  element={(
-                    <ChatRoute>
-                      <ChatPage />
-                    </ChatRoute>
-                  )}
-                />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/signup" element={<RegistrationPage />} />
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-            </Col>
-          </Row>
-        </Container>
+        <Routes>
+          <Route
+            path="/"
+            element={(
+              <ChatRoute>
+                <ChatPage />
+              </ChatRoute>
+            )}
+          />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<RegistrationPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </Router>
     </div>
   </AuthProvider>
