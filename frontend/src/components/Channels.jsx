@@ -32,8 +32,8 @@ const Channel = ({
         {button}
         <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic" />
         <Dropdown.Menu>
-          <Dropdown.Item href="#/action-1" onClick={handleRemove}>{t('chatPage.remove')}</Dropdown.Item>
-          <Dropdown.Item href="#/action-2" onClick={handleRename}>{t('chatPage.rename')}</Dropdown.Item>
+          <Dropdown.Item href="" onClick={handleRemove}>{t('chatPage.remove')}</Dropdown.Item>
+          <Dropdown.Item href="" onClick={handleRename}>{t('chatPage.rename')}</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     );
