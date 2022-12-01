@@ -8,14 +8,14 @@ import axios from 'axios';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import useAuth from '../hooks';
+import { useAuth } from '../hooks';
 import routes from '../routes';
 import avatar from '../assets/avatar_signup.jpg';
 
 const RegistrationPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const auth = useAuth();
+  const { logIn } = useAuth();
   const inputRef = useRef();
 
   const [signupFailed, setSignupFailed] = useState(false);
@@ -49,7 +49,7 @@ const RegistrationPage = () => {
       const { username, password } = values;
       axios.post(routes.signupPath(), { username, password })
         .then(({ data }) => {
-          auth.logIn(data);
+          logIn(data);
           navigate(routes.chatPage());
         })
         .catch((error) => {
