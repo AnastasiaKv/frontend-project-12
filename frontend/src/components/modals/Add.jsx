@@ -5,12 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import socket from '../../socket';
+import { useSocket } from '../../hooks';
 import { actions as modalActions } from '../../slices/modalSlice';
 
 const Add = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { createChannel } = useSocket();
   const inputRef = useRef();
   const channelsNames = useSelector((state) => state.channelsInfo.channels)
     .map((channel) => channel.name);
@@ -32,17 +33,16 @@ const Add = () => {
         .notOneOf(channelsNames, t('modals.uniqueName'))
         .required(t('required')),
     }),
-    onSubmit: ({ name }, { setSubmitting }) => {
-      socket.emit('newChannel', { name }, (response) => {
-        if (response.status === 'ok') {
-          toast.success(t('notifications.channelCreated'));
-          handleClose();
-        } else {
-          setSubmitting(false);
-          inputRef.current.select();
-          console.log('Add new channel error. Emit response: ', response);
-        }
-      });
+    onSubmit: async ({ name }, { setSubmitting }) => {
+      try {
+        await createChannel({ name });
+        toast.success(t('notifications.channelCreated'));
+        handleClose();
+      } catch (error) {
+        setSubmitting(false);
+        inputRef.current.select();
+        console.log('Add new channel error: ', error);
+      }
     },
   });
 

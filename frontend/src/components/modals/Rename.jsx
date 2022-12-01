@@ -5,12 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import socket from '../../socket';
+import { useSocket } from '../../hooks';
 import { actions } from '../../slices/modalSlice';
 
 const Rename = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { renameChannel } = useSocket();
   const inputRef = useRef();
   const { channels } = useSelector((state) => state.channelsInfo);
   const { channelId } = useSelector((state) => state.modal.extra);
@@ -36,17 +37,16 @@ const Rename = () => {
         .notOneOf(restChannelsNames, t('modals.uniqueName'))
         .required(t('required')),
     }),
-    onSubmit: ({ name }, { setSubmitting }) => {
-      socket.emit('renameChannel', { id: channelId, name }, (response) => {
-        if (response.status === 'ok') {
-          toast.success(t('notifications.channelRenamed'));
-          handleClose();
-        } else {
-          setSubmitting(false);
-          inputRef.current.select();
-          console.log('Rename channel error. Emit response: ', response);
-        }
-      });
+    onSubmit: async ({ name }, { setSubmitting }) => {
+      try {
+        await renameChannel({ id: channelId, name });
+        toast.success(t('notifications.channelRenamed'));
+        handleClose();
+      } catch (error) {
+        setSubmitting(false);
+        inputRef.current.select();
+        console.log('Rename channel error: ', error);
+      }
     },
   });
 

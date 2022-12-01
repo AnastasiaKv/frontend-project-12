@@ -5,12 +5,13 @@ import * as yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
 import * as filter from 'leo-profanity';
 import { ReactComponent as SentButton } from '../assets/sent_btn.svg';
-import socket from '../socket';
+import { useAuth, useSocket } from '../hooks';
 
 const MessageForm = ({ channelId }) => {
   const { t } = useTranslation();
-  const { username } = JSON.parse(localStorage.getItem('user'));
+  const { sendMessage } = useSocket();
   const inputRef = useRef();
+  const { user: { username } } = useAuth();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -23,15 +24,14 @@ const MessageForm = ({ channelId }) => {
     validationSchema: yup.object({
       newMessage: yup.string().trim().required(),
     }),
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
       const cleanMessage = filter.clean(values.newMessage);
-      socket.emit('newMessage', { body: cleanMessage, channelId, username }, (response) => {
-        if (response.status === 'ok') {
-          resetForm();
-        } else {
-          console.log('Send message error. Emit response: ', response);
-        }
-      });
+      try {
+        await sendMessage({ body: cleanMessage, channelId, username });
+        resetForm();
+      } catch (error) {
+        console.log('Send message error: ', error);
+      }
       inputRef.current.focus();
     },
   });

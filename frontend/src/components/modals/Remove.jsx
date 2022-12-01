@@ -3,25 +3,25 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import socket from '../../socket';
+import { useSocket } from '../../hooks';
 import { actions } from '../../slices/modalSlice';
 
 const Remove = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { removeChannel } = useSocket();
   const { channelId } = useSelector((state) => state.modal.extra);
 
   const handleClose = () => dispatch(actions.close());
 
-  const handleSubmit = () => {
-    socket.emit('removeChannel', { id: channelId }, (response) => {
-      if (response.status === 'ok') {
-        toast.success(t('notifications.channelRemoved'));
-        handleClose();
-      } else {
-        console.log('Remove channel error. Emit response: ', response);
-      }
-    });
+  const handleSubmit = async () => {
+    try {
+      await removeChannel({ id: channelId });
+      toast.success(t('notifications.channelRemoved'));
+      handleClose();
+    } catch (error) {
+      console.log('Remove channel error: ', error);
+    }
   };
 
   return (
