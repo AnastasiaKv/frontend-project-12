@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Button, Col, Nav, Dropdown, ButtonGroup,
@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ReactComponent as AddButton } from '../assets/add_btn.svg';
 import { actions as channelActions } from '../slices/channelsSlice';
 import { actions as modalActions } from '../slices/modalSlice';
-import socket from '../socket';
 
 const Channel = ({
   channel, isActive, handleRename, handleRemove, handleChoose,
@@ -45,18 +44,6 @@ const Channels = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { channels, currentChannel } = useSelector((state) => state.channelsInfo);
-
-  useEffect(() => {
-    socket.on('newChannel', (payload) => dispatch(channelActions.addChannel(payload)));
-    socket.on('removeChannel', (payload) => dispatch(channelActions.removeChannel(payload)));
-    socket.on('renameChannel', (payload) => dispatch(channelActions.updateChannel(payload)));
-
-    return () => {
-      socket.off('newChannel');
-      socket.off('removeChannel');
-      socket.off('renameChannel');
-    };
-  }, [dispatch]);
 
   const channelHandler = (type, channelId) => {
     const extra = channelId ? { channelId } : null;
