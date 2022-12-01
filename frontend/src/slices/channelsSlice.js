@@ -1,4 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import routes from '../routes';
+
+export const fetchData = createAsyncThunk('channelsInfo/fetchData', async (headers) => {
+  const response = await axios.get(routes.getDataPath(), headers);
+  return response.data;
+});
 
 const channelsSlice = createSlice({
   name: 'channelsInfo',
@@ -10,12 +17,6 @@ const channelsSlice = createSlice({
     },
   },
   reducers: {
-    setChannels: (state, { payload }) => {
-      const { channels, currentChannelId } = payload;
-      state.channels = channels;
-      state.currentChannel.id = currentChannelId;
-      state.currentChannel.defaultId = currentChannelId;
-    },
     addChannel: (state, { payload }) => {
       state.channels = [...state.channels, payload];
       state.currentChannel.id = payload.id;
@@ -27,12 +28,21 @@ const channelsSlice = createSlice({
         state.currentChannel.id = state.currentChannel.defaultId;
       }
     },
-    updateChannel: (state, { payload }) => {
+    renameChannel: (state, { payload }) => {
       const { id, name } = payload;
       const channel = state.channels.find((ch) => ch.id === id);
       channel.name = name;
     },
     updateCurrentChannel: (state, { payload }) => { state.currentChannel.id = payload.id; },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchData.fulfilled, (state, { payload }) => {
+        const { channels, currentChannelId } = payload;
+        state.channels = channels;
+        state.currentChannel.id = currentChannelId;
+        state.currentChannel.defaultId = currentChannelId;
+      });
   },
 });
 

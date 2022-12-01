@@ -2,28 +2,27 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import axios from 'axios';
-import routes from '../routes';
 import Channels from './Channels';
 import ChatRoom from './ChatRoom';
-import useAuth from '../hooks';
+import { useAuth } from '../hooks';
 import getModal from './modals/index.js';
-import { actions as channelsActions } from '../slices/channelsSlice';
+import { fetchData } from '../slices/channelsSlice';
 
 const ChatPage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const auth = useAuth();
+  const { getAuthHeader } = useAuth();
   const { isOpened, type } = useSelector((state) => state.modal);
   const Modal = getModal(type);
 
   useEffect(() => {
-    const notify = (errorType) => toast.error(t(`errors.${errorType}`));
-
-    axios.get(routes.getDataPath(), { headers: auth.getAuthHeader() })
-      .then((response) => dispatch(channelsActions.setChannels(response.data)))
-      .catch((error) => notify(error.isAxiosError ? 'network' : 'unknown'));
-  }, [dispatch, auth, t]);
+    try {
+      const headers = { headers: getAuthHeader() };
+      dispatch(fetchData(headers));
+    } catch (error) {
+      toast.error(t(`errors.${error.isAxiosError ? 'network' : 'unknown'}`));
+    }
+  }, []);
 
   return (
     <>
