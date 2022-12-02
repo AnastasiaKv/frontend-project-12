@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "npx start-server"
+    "start": "npx start-server -p 5001"
   },
   "dependencies": {
     "@hexlet/chat-server": "^1.1.6"
