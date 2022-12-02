@@ -4,9 +4,9 @@
   "description": "[![Actions Status](https://github.com/AnastasiaKv/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/AnastasiaKv/frontend-project-12/actions)",
   "main": "src/index.js",
   "scripts": {
-    "start": "make start --port ${PORT-3000}",
+    "start": "make start",
     "postinstall": "make -C backend install && make -C frontend install",
-    "build": "NODE_ENV=production make -C frontend build"
+    "build": "make -C frontend build"
   },
   "repository": {
     "type": "git",
