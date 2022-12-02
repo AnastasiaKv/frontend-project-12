@@ -14,19 +14,12 @@ const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  const getAuthHeader = () => {
-    if (user?.token) {
-      return { Authorization: `Bearer ${user.token}` };
-    }
-    return {};
-  };
-
   const authContextProviderValue = useMemo(() => ({
     loggedIn: !!user?.token,
     user,
     logIn,
     logOut,
-    getAuthHeader,
+    getAuthHeader: () => (user?.token ? { Authorization: `Bearer ${user.token}` } : {}),
   }), [user]);
 
   return (
