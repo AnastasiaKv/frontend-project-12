@@ -58,7 +58,7 @@ const SocketProvider = ({ socket, children }) => {
     createChannel,
     removeChannel,
     renameChannel,
-  }), []);
+  }), [sendMessage, createChannel, removeChannel, renameChannel]);
 
   return (
     <SocketContext.Provider value={socketApi}>

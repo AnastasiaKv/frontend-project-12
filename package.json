@@ -2,7 +2,7 @@
   "name": "frontend-project-12",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/AnastasiaKv/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/AnastasiaKv/frontend-project-12/actions)",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "make start",
     "postinstall": "make -C backend install && make -C frontend install",

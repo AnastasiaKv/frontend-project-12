@@ -22,7 +22,7 @@ const ChatPage = () => {
     } catch (error) {
       toast.error(t(`errors.${error.isAxiosError ? 'network' : 'unknown'}`));
     }
-  }, []);
+  }, [dispatch, getAuthHeader, t]);
 
   return (
     <>
