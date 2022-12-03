@@ -12,7 +12,7 @@ import routes from '../routes';
 import avatar from '../assets/avatar_login.jpg';
 import AuthAvatar from './AuthAvatar';
 import AuthFormGroup from './AuthFormGroup';
-import { loginSchema } from '../validationShemas';
+import { loginSchema } from '../validationSchemas';
 
 const LoginPage = () => {
   const { t } = useTranslation();

@@ -12,7 +12,7 @@ import routes from '../routes';
 import avatar from '../assets/avatar_signup.jpg';
 import AuthAvatar from './AuthAvatar';
 import AuthFormGroup from './AuthFormGroup';
-import { registrationSchema } from '../validationShemas';
+import { registrationSchema } from '../validationSchemas';
 
 const RegistrationPage = () => {
   const { t } = useTranslation();

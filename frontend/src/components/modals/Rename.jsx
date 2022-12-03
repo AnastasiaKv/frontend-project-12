@@ -7,7 +7,7 @@ import { useFormik } from 'formik';
 import { useSocket } from '../../hooks';
 import { actions } from '../../slices/modalSlice';
 import ModalHeader from './ModalHeader';
-import { channelNameSchema } from '../../validationShemas';
+import { channelNameSchema } from '../../validationSchemas';
 
 const Rename = () => {
   const { t } = useTranslation();
