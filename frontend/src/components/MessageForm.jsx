@@ -42,6 +42,8 @@ const MessageForm = ({ channelId }) => {
         <Form.Control
           className="border-0 p-0 ps-2"
           name="newMessage"
+          id="newMessage"
+          data-testid="newMessage"
           placeholder={t('chatPage.enterMessage')}
           aria-label={t('chatPage.newMessage')}
           value={formik.values.newMessage}

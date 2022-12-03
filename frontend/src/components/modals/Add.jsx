@@ -58,7 +58,8 @@ const Add = () => {
             <Form.Control
               className="mb-2"
               name="name"
-              id="name"
+              id="addChannel"
+              data-testid="addChannel"
               aria-label={t('modals.channelName')}
               value={formik.values.name}
               isInvalid={formik.touched.name && formik.errors.name}
@@ -66,7 +67,7 @@ const Add = () => {
               ref={inputRef}
               required
             />
-            <Form.Label visuallyHidden="true" htmlFor="name">{t('modals.channelName')}</Form.Label>
+            <Form.Label visuallyHidden="true" htmlFor="addChannel">{t('modals.channelName')}</Form.Label>
             {formik.touched.name && formik.errors.name ? (
               <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
             ) : null}

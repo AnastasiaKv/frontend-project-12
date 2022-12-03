@@ -62,7 +62,8 @@ const Rename = () => {
             <Form.Control
               className="mb-2"
               name="name"
-              id="name"
+              id="renameChannel"
+              data-testid="renameChannel"
               aria-label={t('modals.channelName')}
               value={formik.values.name}
               isInvalid={formik.touched.name && formik.errors.name}
@@ -70,7 +71,7 @@ const Rename = () => {
               ref={inputRef}
               required
             />
-            <Form.Label visuallyHidden="true" htmlFor="name">{t('modals.channelName')}</Form.Label>
+            <Form.Label visuallyHidden="true" htmlFor="renameChannel">{t('modals.channelName')}</Form.Label>
             {formik.touched.name && formik.errors.name ? (
               <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
             ) : null}
