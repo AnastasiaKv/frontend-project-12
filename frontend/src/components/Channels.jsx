@@ -20,7 +20,6 @@ const Channel = ({
       key={channel.id}
       onClick={handleChoose}
     >
-      <span className="visually-hidden">{t('chatPage.control')}</span>
       {channel.name}
     </Button>
   );
@@ -29,7 +28,9 @@ const Channel = ({
     return (
       <Dropdown as={ButtonGroup} key={channel.id}>
         {button}
-        <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic" />
+        <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic">
+          <span className="visually-hidden">{t('chatPage.control')}</span>
+        </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item href="" onClick={handleRemove}>{t('chatPage.remove')}</Dropdown.Item>
           <Dropdown.Item href="" onClick={handleRename}>{t('chatPage.rename')}</Dropdown.Item>
