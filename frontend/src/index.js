@@ -3,8 +3,8 @@ import { io } from 'socket.io-client';
 import init from './init';
 
 const runApp = () => {
-  // const URL = `http://localhost:${process.env.PORT || '5001'}`;
-  const socket = io();
+  const URL = process.env.NODE_ENV === 'development' ? 'http://localhost:5001' : null;
+  const socket = io(URL);
   const root = ReactDOM.createRoot(document.getElementById('chat'));
 
   init(socket).then((app) => root.render(app));
