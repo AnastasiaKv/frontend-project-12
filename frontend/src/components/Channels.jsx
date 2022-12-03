@@ -58,8 +58,9 @@ const Channels = () => {
     <Col className="border-end pt-5 px-0 bg-light" xs="4" md="2">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
         <span>{t('chatPage.channels')}</span>
-        <Button className="btn-group-vertical p-0 text-primary" variant="light">
-          <AddButton onClick={() => channelHandler('addChannel')} />
+        <Button className="btn-group-vertical p-0 text-primary" variant="light" onClick={() => channelHandler('addChannel')}>
+          <AddButton />
+          <span className="visually-hidden">+</span>
         </Button>
       </div>
       <Nav className="px-2 flex-column justify-content-left" as="ul" variant="pills" fill justify="left">
