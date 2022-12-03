@@ -4,9 +4,10 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 import { useSocket } from '../../hooks';
 import { actions as modalActions } from '../../slices/modalSlice';
+import ModalHeader from './ModalHeader';
+import { channelNameSchema } from '../../validationShemas';
 
 const Add = () => {
   const { t } = useTranslation();
@@ -26,13 +27,7 @@ const Add = () => {
     initialValues: {
       name: '',
     },
-    validationSchema: yup.object({
-      name: yup.string().trim()
-        .min(3, t('modals.nameLength'))
-        .max(20, t('modals.nameLength'))
-        .notOneOf(channelsNames, t('modals.uniqueName'))
-        .required(t('required')),
-    }),
+    validationSchema: channelNameSchema(t, channelsNames),
     onSubmit: async ({ name }, { setSubmitting }) => {
       try {
         await createChannel({ name });
@@ -48,10 +43,7 @@ const Add = () => {
 
   return (
     <Modal show centered onHide={handleClose}>
-      <Modal.Header closeButton onHide={handleClose}>
-        <Modal.Title>{t('modals.addChannel')}</Modal.Title>
-      </Modal.Header>
-
+      <ModalHeader title={t('modals.addChannel')} closeHandler={handleClose} />
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>

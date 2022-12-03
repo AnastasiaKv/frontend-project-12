@@ -1,11 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
 import * as filter from 'leo-profanity';
 import { ReactComponent as SentButton } from '../assets/sent_btn.svg';
 import { useAuth, useSocket } from '../hooks';
+import { messageSchema } from '../validationShemas';
 
 const MessageForm = ({ channelId }) => {
   const { t } = useTranslation();
@@ -21,9 +21,7 @@ const MessageForm = ({ channelId }) => {
     initialValues: {
       newMessage: '',
     },
-    validationSchema: yup.object({
-      newMessage: yup.string().trim().required(),
-    }),
+    validationSchema: messageSchema(),
     onSubmit: async (values, { resetForm }) => {
       const cleanMessage = filter.clean(values.newMessage);
       try {

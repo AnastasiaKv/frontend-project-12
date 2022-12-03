@@ -5,12 +5,14 @@ import {
   Button, Form, Card, Col, Row, Container,
 } from 'react-bootstrap';
 import axios from 'axios';
-import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useAuth } from '../hooks';
 import routes from '../routes';
 import avatar from '../assets/avatar_login.jpg';
+import AuthAvatar from './AuthAvatar';
+import AuthFormGroup from './AuthFormGroup';
+import { loginSchema } from '../validationShemas';
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -31,10 +33,7 @@ const LoginPage = () => {
       username: '',
       password: '',
     },
-    validationSchema: yup.object({
-      username: yup.string().trim().required(t('required')),
-      password: yup.string().trim().required(t('required')),
-    }),
+    validationSchema: loginSchema(t),
     onSubmit: (values) => {
       setAuthFailed(false);
       axios.post(routes.loginPath(), values)
@@ -61,44 +60,31 @@ const LoginPage = () => {
         <Col xs="12" md="8" xxl="6">
           <Card className="shadow-sm">
             <Card.Body className="row p-5">
-              <Col xs="12" md="6" className="d-flex align-items-center justify-content-center">
-                <img className="rounded-circle" src={avatar} width="200px" height="200px" alt={t('authPages.login')} />
-              </Col>
+              <AuthAvatar src={avatar} alt={t('authPages.login')} />
               <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
                 <h1 className="text-center mb-4">{t('authPages.login')}</h1>
-                <Form.Group className="form-floating mb-3">
-                  <Form.Control
-                    id="username"
-                    name="username"
-                    autoComplete="username"
-                    placeholder={t('authPages.nickname')}
-                    value={formik.values.username}
-                    onChange={formik.handleChange}
-                    isInvalid={authFailed}
-                    ref={inputRef}
-                    required
-                  />
-                  <Form.Label htmlFor="username">{t('authPages.nickname')}</Form.Label>
-                </Form.Group>
-                <Form.Group className="form-floating mb-3">
-                  <Form.Control
-                    id="password"
-                    type="password"
-                    name="password"
-                    autoComplete="current-password"
-                    placeholder={t('authPages.password')}
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    isInvalid={authFailed}
-                    required
-                  />
-                  <Form.Label htmlFor="password">{t('authPages.password')}</Form.Label>
-                  { authFailed && (
-                    <Form.Control.Feedback type="invalid" tooltip>
-                      {t('authPages.authFaild')}
-                    </Form.Control.Feedback>
-                  )}
-                </Form.Group>
+                <AuthFormGroup
+                  name="username"
+                  type="string"
+                  autoComplete="username"
+                  placeholder={t('authPages.nickname')}
+                  value={formik.values.username}
+                  onChange={formik.handleChange}
+                  isInvalid={authFailed}
+                  inputRef={inputRef}
+                  label={t('authPages.nickname')}
+                />
+                <AuthFormGroup
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  placeholder={t('authPages.password')}
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  isInvalid={authFailed}
+                  label={t('authPages.password')}
+                  feedback={authFailed && t('authPages.authFaild')}
+                />
                 <Button className="my-3 w-100" variant="outline-primary" type="submit">
                   {t('authPages.login')}
                 </Button>

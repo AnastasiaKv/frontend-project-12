@@ -5,12 +5,14 @@ import {
   Button, Form, Card, Col, Row, Container,
 } from 'react-bootstrap';
 import axios from 'axios';
-import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useAuth } from '../hooks';
 import routes from '../routes';
 import avatar from '../assets/avatar_signup.jpg';
+import AuthAvatar from './AuthAvatar';
+import AuthFormGroup from './AuthFormGroup';
+import { registrationSchema } from '../validationShemas';
 
 const RegistrationPage = () => {
   const { t } = useTranslation();
@@ -32,18 +34,7 @@ const RegistrationPage = () => {
       password: '',
       passwordConfirm: '',
     },
-    validationSchema: yup.object({
-      username: yup.string()
-        .min(3, t('authPages.usernameLength'))
-        .max(20, t('authPages.usernameLength'))
-        .required(t('required')),
-      password: yup.string()
-        .min(6, t('authPages.passwordLength'))
-        .required(t('required')),
-      passwordConfirm: yup.string()
-        .oneOf([yup.ref('password'), null], t('authPages.passwordsMatch'))
-        .required(t('required')),
-    }),
+    validationSchema: registrationSchema(t),
     onSubmit: (values) => {
       setSignupFailed(false);
       const { username, password } = values;
@@ -72,62 +63,43 @@ const RegistrationPage = () => {
         <Col xs="12" md="8" xxl="6">
           <Card className="shadow-sm">
             <Card.Body className="row p-5">
-              <Col xs="12" md="6" className="d-flex align-items-center justify-content-center">
-                <img className="rounded-circle" src={avatar} width="200px" height="200px" alt={t('authPages.registration')} />
-              </Col>
+              <AuthAvatar src={avatar} alt={t('authPages.registration')} />
               <Form className="w-50" onSubmit={formik.handleSubmit}>
                 <h1 className="text-center mb-4">{t('authPages.registration')}</h1>
-                <Form.Group className="form-floating mb-3">
-                  <Form.Control
-                    id="username"
-                    name="username"
-                    placeholder={t('authPages.username')}
-                    value={formik.values.username}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    isInvalid={formik.errors.username && formik.touched.username}
-                    ref={inputRef}
-                    required
-                  />
-                  <Form.Label htmlFor="username">{t('authPages.username')}</Form.Label>
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {signupFailed ? t('authPages.existedUser') : formik.errors.username}
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group className="form-floating mb-3">
-                  <Form.Control
-                    id="password"
-                    name="password"
-                    type="password"
-                    placeholder={t('authPages.password')}
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    isInvalid={formik.errors.password && formik.touched.password}
-                    required
-                  />
-                  <Form.Label htmlFor="password">{t('authPages.password')}</Form.Label>
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {formik.errors.password}
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group className="form-floating mb-3">
-                  <Form.Control
-                    id="passwordConfirm"
-                    name="passwordConfirm"
-                    type="password"
-                    placeholder={t('authPages.passwordConfirm')}
-                    value={formik.values.passwordConfirm}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    isInvalid={formik.errors.passwordConfirm && formik.touched.passwordConfirm}
-                    required
-                  />
-                  <Form.Label htmlFor="passwordConfirm">{t('authPages.passwordConfirm')}</Form.Label>
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {formik.errors.passwordConfirm}
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <AuthFormGroup
+                  name="username"
+                  type="string"
+                  placeholder={t('authPages.username')}
+                  value={formik.values.username}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  isInvalid={formik.errors.username && formik.touched.username}
+                  inputRef={inputRef}
+                  label={t('authPages.username')}
+                  feedback={signupFailed ? t('authPages.existedUser') : formik.errors.username}
+                />
+                <AuthFormGroup
+                  name="password"
+                  type="password"
+                  placeholder={t('authPages.password')}
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  isInvalid={formik.errors.password && formik.touched.password}
+                  label={t('authPages.password')}
+                  feedback={formik.errors.password}
+                />
+                <AuthFormGroup
+                  name="passwordConfirm"
+                  type="password"
+                  placeholder={t('authPages.passwordConfirm')}
+                  value={formik.values.passwordConfirm}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  isInvalid={formik.errors.passwordConfirm && formik.touched.passwordConfirm}
+                  label={t('authPages.passwordConfirm')}
+                  feedback={formik.errors.passwordConfirm}
+                />
                 <Button className="my-3 w-100" variant="outline-primary" type="submit">
                   {t('authPages.signup')}
                 </Button>

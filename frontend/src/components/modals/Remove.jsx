@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useSocket } from '../../hooks';
 import { actions } from '../../slices/modalSlice';
+import ModalHeader from './ModalHeader';
 
 const Remove = () => {
   const { t } = useTranslation();
@@ -26,9 +27,7 @@ const Remove = () => {
 
   return (
     <Modal show centered onHide={handleClose}>
-      <Modal.Header closeButton onHide={handleClose}>
-        <Modal.Title>{t('modals.removeChannel')}</Modal.Title>
-      </Modal.Header>
+      <ModalHeader title={t('modals.removeChannel')} closeHandler={handleClose} />
       <Modal.Body>{t('modals.areYouSure')}</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>

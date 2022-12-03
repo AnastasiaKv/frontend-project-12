@@ -4,9 +4,10 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 import { useSocket } from '../../hooks';
 import { actions } from '../../slices/modalSlice';
+import ModalHeader from './ModalHeader';
+import { channelNameSchema } from '../../validationShemas';
 
 const Rename = () => {
   const { t } = useTranslation();
@@ -30,13 +31,7 @@ const Rename = () => {
     initialValues: {
       name: channelName,
     },
-    validationSchema: yup.object({
-      name: yup.string().trim()
-        .min(3, t('modals.nameLength'))
-        .max(20, t('modals.nameLength'))
-        .notOneOf(restChannelsNames, t('modals.uniqueName'))
-        .required(t('required')),
-    }),
+    validationSchema: channelNameSchema(t, restChannelsNames),
     onSubmit: async ({ name }, { setSubmitting }) => {
       try {
         await renameChannel({ id: channelId, name });
@@ -52,10 +47,7 @@ const Rename = () => {
 
   return (
     <Modal show centered onHide={handleClose}>
-      <Modal.Header closeButton onHide={handleClose}>
-        <Modal.Title>{t('modals.renameChannel')}</Modal.Title>
-      </Modal.Header>
-
+      <ModalHeader title={t('modals.renameChannel')} closeHandler={handleClose} />
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
