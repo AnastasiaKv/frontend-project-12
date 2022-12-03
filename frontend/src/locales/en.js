@@ -29,6 +29,7 @@ export default {
       enterMessage: 'Write a message...',
       rename: 'Rename',
       remove: 'Remove',
+      control: 'Channel control',
       messagesCounter: {
         messagesCount_one: '{{count}} message',
         messagesCount_other: '{{count}} messages',

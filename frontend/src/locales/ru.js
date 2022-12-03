@@ -29,6 +29,7 @@ export default {
       enterMessage: 'Введите сообщение...',
       rename: 'Переименовать',
       remove: 'Удалить',
+      control: 'Управление каналом',
       messagesCounter: {
         messagesCount_zero: '{{count}} сообщений',
         messagesCount_one: '{{count}} сообщение',
