@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { actions as channelsActions, fetchData } from './channelsSlice';
 
-// eslint no-param-reassign: ["error", { "props": false }]
+/* eslint no-param-reassign: ["error", { "props": false }] */
 const messagesSlice = createSlice({
   name: 'messagesInfo',
   initialState: {

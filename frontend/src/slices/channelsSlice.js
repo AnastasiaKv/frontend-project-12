@@ -7,7 +7,7 @@ export const fetchData = createAsyncThunk('channelsInfo/fetchData', async (heade
   return response.data;
 });
 
-// eslint no-param-reassign: ["error", { "props": false }]
+/* eslint no-param-reassign: ["error", { "props": false }] */
 const channelsSlice = createSlice({
   name: 'channelsInfo',
   initialState: {
