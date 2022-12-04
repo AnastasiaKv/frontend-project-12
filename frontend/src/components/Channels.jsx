@@ -20,6 +20,7 @@ const Channel = ({
       key={channel.id}
       onClick={handleChoose}
     >
+      <span className="me-1">#</span>
       {channel.name}
     </Button>
   );
