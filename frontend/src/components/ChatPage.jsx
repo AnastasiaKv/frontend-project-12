@@ -16,12 +16,24 @@ const ChatPage = () => {
   const Modal = getModal(type);
 
   useEffect(() => {
-    try {
-      const headers = { headers: getAuthHeader() };
-      dispatch(fetchData(headers));
-    } catch (error) {
-      toast.error(t(`errors.${error.isAxiosError ? 'network' : 'unknown'}`));
-    }
+    const notify = (errorType) => toast.error(t(`errors.${errorType}`));
+
+    const headers = { headers: getAuthHeader() };
+    dispatch(fetchData(headers))
+      .then(({ meta, payload }) => {
+        if (meta.requestStatus === 'rejected') {
+          const error = new Error(payload.message);
+          error.code = payload.statusCode;
+          throw error;
+        }
+      })
+      .catch((error) => {
+        if (error.code === 401) {
+          notify('unauthorized');
+        } else {
+          notify(error.isAxiosError ? 'network' : 'unknown');
+        }
+      });
   }, [dispatch, getAuthHeader, t]);
 
   return (

@@ -55,6 +55,7 @@ export default {
     errors: {
       network: 'Connection error',
       unknown: 'Unknown error',
+      unauthorized: 'Unauthorization error',
     },
     notFoundPage: {
       title: 'Page Not Found',

@@ -2,9 +2,13 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import routes from '../routes';
 
-export const fetchData = createAsyncThunk('channelsInfo/fetchData', async (headers) => {
-  const response = await axios.get(routes.getDataPath(), headers);
-  return response.data;
+export const fetchData = createAsyncThunk('channelsInfo/fetchData', async (headers, { rejectWithValue }) => {
+  try {
+    const response = await axios.get(routes.getDataPath(), headers);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
 });
 
 /* eslint no-param-reassign: ["error", { "props": false }] */

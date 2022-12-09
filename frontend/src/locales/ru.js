@@ -57,6 +57,7 @@ export default {
     errors: {
       network: 'Ошибка соединения',
       unknown: 'Неизвестная ошибка',
+      unauthorized: 'Ошибка авторизации',
     },
     notFoundPage: {
       title: 'Страница не найдена',

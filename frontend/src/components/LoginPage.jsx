@@ -49,6 +49,7 @@ const LoginPage = () => {
           if (error.response?.status === 401) {
             setAuthFailed(true);
             inputRef.current.select();
+            notify('unauthorized');
           } else notify('network');
         });
     },
