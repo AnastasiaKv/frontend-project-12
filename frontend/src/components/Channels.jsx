@@ -15,9 +15,8 @@ const Channel = ({
   const buttonVariant = isActive ? 'secondary' : 'light';
   const button = (
     <Button
-      className="w-100 rounded-0 text-start"
+      className="w-100 rounded-0 text-start text-truncate"
       variant={buttonVariant}
-      key={channel.id}
       onClick={handleChoose}
     >
       <span className="me-1">#</span>
@@ -27,9 +26,9 @@ const Channel = ({
 
   if (channel.removable) {
     return (
-      <Dropdown as={ButtonGroup} key={channel.id}>
+      <Dropdown as={ButtonGroup} className="d-flex">
         {button}
-        <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic">
+        <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic flex-grow-0">
           <span className="visually-hidden">{t('chatPage.control')}</span>
         </Dropdown.Toggle>
         <Dropdown.Menu>
@@ -65,16 +64,17 @@ const Channels = () => {
           <span className="visually-hidden">+</span>
         </Button>
       </div>
-      <Nav className="px-2 flex-column justify-content-left" as="ul" variant="pills" fill justify="left">
+      <Nav className="px-2 flex-column" as="ul" variant="pills" fill>
         {channels.map((channel) => (
-          <Channel
-            key={channel.id}
-            channel={channel}
-            isActive={channel.id === currentChannel.id}
-            handleRename={() => channelHandler('renameChannel', channel.id)}
-            handleRemove={() => channelHandler('removeChannel', channel.id)}
-            handleChoose={() => updateCurrentChannelHandler(channel.id)}
-          />
+          <Nav.Item as="li" className="w-100" key={channel.id}>
+            <Channel
+              channel={channel}
+              isActive={channel.id === currentChannel.id}
+              handleRename={() => channelHandler('renameChannel', channel.id)}
+              handleRemove={() => channelHandler('removeChannel', channel.id)}
+              handleChoose={() => updateCurrentChannelHandler(channel.id)}
+            />
+          </Nav.Item>
         ))}
       </Nav>
     </Col>
