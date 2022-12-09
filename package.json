@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "start-server -s ./frontend/build",
-    "build": "npm make -C frontend build",
+    "build": "make -C frontend build",
     "postinstall": "make -C frontend install"
   },
   "repository": {
