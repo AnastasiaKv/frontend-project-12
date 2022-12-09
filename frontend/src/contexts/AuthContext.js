@@ -5,20 +5,18 @@ const AuthContext = createContext({});
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || null);
 
-  const logIn = (data) => {
-    setUser(data);
-  };
+  const setUserData = (userData) => {
+    if (userData) localStorage.setItem('user', JSON.stringify(userData));
+    else localStorage.removeItem('user');
 
-  const logOut = () => {
-    localStorage.removeItem('user');
-    setUser(null);
+    setUser(userData);
   };
 
   const authContextProviderValue = useMemo(() => ({
     loggedIn: !!user?.token,
     user,
-    logIn,
-    logOut,
+    logIn: (data) => setUserData(data),
+    logOut: () => setUserData(null),
     getAuthHeader: () => (user?.token ? { Authorization: `Bearer ${user.token}` } : {}),
   }), [user]);
 
