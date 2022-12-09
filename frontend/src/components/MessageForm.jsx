@@ -48,9 +48,10 @@ const MessageForm = ({ channelId }) => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           ref={inputRef}
+          disabled={formik.isSubmitting}
           required
         />
-        <Button className="btn-group-vertical" type="submit" variant="light" disabled={!formik.dirty || !formik.isValid}>
+        <Button className="btn-group-vertical" type="submit" variant="light" disabled={formik.isSubmitting || !formik.dirty || !formik.isValid}>
           <SentButton />
           <span className="visually-hidden">{t('chatPage.send')}</span>
         </Button>

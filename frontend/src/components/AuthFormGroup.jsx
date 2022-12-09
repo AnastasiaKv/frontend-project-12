@@ -2,8 +2,8 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const AuthFormGroup = ({
-  name, type, placeholder, autoComplete, value,
-  onChange, onBlur, isInvalid, inputRef, label, feedback,
+  name, type, placeholder, autoComplete, value, onChange,
+  onBlur, isInvalid, inputRef, label, feedback, disabled,
 }) => (
   <Form.Group className="form-floating mb-3">
     <Form.Control
@@ -17,6 +17,7 @@ const AuthFormGroup = ({
       onBlur={onBlur}
       isInvalid={isInvalid}
       ref={inputRef}
+      disabled={disabled}
       required
     />
     <Form.Label htmlFor={name}>{label}</Form.Label>

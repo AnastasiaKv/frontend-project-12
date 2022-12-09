@@ -28,13 +28,12 @@ const Add = () => {
       name: '',
     },
     validationSchema: channelNameSchema(t, channelsNames),
-    onSubmit: async ({ name }, { setSubmitting }) => {
+    onSubmit: async ({ name }) => {
       try {
         await createChannel({ name });
         toast.success(t('notifications.channelCreated'));
         handleClose();
       } catch (error) {
-        setSubmitting(false);
         inputRef.current.select();
         console.log('Add new channel error: ', error);
       }
@@ -57,6 +56,7 @@ const Add = () => {
               isInvalid={formik.touched.name && formik.errors.name}
               onChange={formik.handleChange}
               ref={inputRef}
+              disabled={formik.isSubmitting}
               required
             />
             <Form.Label visuallyHidden="true" htmlFor="addChannel">{t('modals.channelName')}</Form.Label>
@@ -70,7 +70,7 @@ const Add = () => {
         <Button variant="secondary" onClick={handleClose}>
           {t('modals.cancel')}
         </Button>
-        <Button variant="primary" onClick={formik.handleSubmit}>
+        <Button variant="primary" onClick={formik.handleSubmit} disabled={formik.isSubmitting}>
           {t('modals.submit')}
         </Button>
       </Modal.Footer>

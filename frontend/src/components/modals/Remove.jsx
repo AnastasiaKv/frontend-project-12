@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,7 @@ import ModalHeader from './ModalHeader';
 const Remove = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { removeChannel } = useSocket();
   const { channelId } = useSelector((state) => state.modal.extra);
 
@@ -17,9 +18,11 @@ const Remove = () => {
 
   const handleSubmit = async () => {
     try {
+      setIsSubmitting(true);
       await removeChannel({ id: channelId });
       toast.success(t('notifications.channelRemoved'));
       handleClose();
+      setIsSubmitting(false);
     } catch (error) {
       console.log('Remove channel error: ', error);
     }
@@ -33,7 +36,7 @@ const Remove = () => {
         <Button variant="secondary" onClick={handleClose}>
           {t('modals.cancel')}
         </Button>
-        <Button variant="danger" onClick={handleSubmit}>
+        <Button variant="danger" onClick={handleSubmit} disabled={isSubmitting}>
           {t('modals.remove')}
         </Button>
       </Modal.Footer>

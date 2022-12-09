@@ -74,6 +74,7 @@ const LoginPage = () => {
                   isInvalid={authFailed}
                   inputRef={inputRef}
                   label={t('authPages.nickname')}
+                  disabled={formik.isSubmitting}
                 />
                 <AuthFormGroup
                   name="password"
@@ -85,8 +86,9 @@ const LoginPage = () => {
                   isInvalid={authFailed}
                   label={t('authPages.password')}
                   feedback={authFailed && t('authPages.authFaild')}
+                  disabled={formik.isSubmitting}
                 />
-                <Button className="my-3 w-100" variant="outline-primary" type="submit">
+                <Button className="my-3 w-100" variant="outline-primary" type="submit" disabled={formik.isSubmitting}>
                   {t('authPages.login')}
                 </Button>
               </Form>

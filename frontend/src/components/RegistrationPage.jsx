@@ -77,6 +77,7 @@ const RegistrationPage = () => {
                   inputRef={inputRef}
                   label={t('authPages.username')}
                   feedback={signupFailed ? t('authPages.existedUser') : formik.errors.username}
+                  disabled={formik.isSubmitting}
                 />
                 <AuthFormGroup
                   name="password"
@@ -88,6 +89,7 @@ const RegistrationPage = () => {
                   isInvalid={formik.errors.password && formik.touched.password}
                   label={t('authPages.password')}
                   feedback={formik.errors.password}
+                  disabled={formik.isSubmitting}
                 />
                 <AuthFormGroup
                   name="passwordConfirm"
@@ -99,8 +101,9 @@ const RegistrationPage = () => {
                   isInvalid={formik.errors.passwordConfirm && formik.touched.passwordConfirm}
                   label={t('authPages.passwordConfirm')}
                   feedback={formik.errors.passwordConfirm}
+                  disabled={formik.isSubmitting}
                 />
-                <Button className="my-3 w-100" variant="outline-primary" type="submit">
+                <Button className="my-3 w-100" variant="outline-primary" type="submit" disabled={formik.isSubmitting}>
                   {t('authPages.signup')}
                 </Button>
               </Form>
