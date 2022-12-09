@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import { useSocket } from '../../hooks';
 import { actions as modalActions } from '../../slices/modalSlice';
+import { actions as channelActions } from '../../slices/channelsSlice';
 import ModalHeader from './ModalHeader';
 import { channelNameSchema } from '../../validationSchemas';
 
@@ -30,7 +31,8 @@ const Add = () => {
     validationSchema: channelNameSchema(t, channelsNames),
     onSubmit: async ({ name }) => {
       try {
-        await createChannel({ name });
+        const { id } = await createChannel({ name });
+        dispatch(channelActions.updateCurrentChannel({ id }));
         toast.success(t('notifications.channelCreated'));
         handleClose();
       } catch (error) {
