@@ -1,6 +1,4 @@
 start:
 				npx start-server & make -C frontend start
-install-frontend:
-				make -C frontend install
-lint-frontend:
+lint:
 				make -C frontend lint
