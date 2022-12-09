@@ -71,7 +71,7 @@ const Rename = () => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleClose} disabled={formik.isSubmitting}>
           {t('modals.cancel')}
         </Button>
         <Button variant="primary" onClick={formik.handleSubmit} disabled={formik.isSubmitting}>

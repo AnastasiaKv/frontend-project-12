@@ -33,7 +33,7 @@ const Remove = () => {
       <ModalHeader title={t('modals.removeChannel')} closeHandler={handleClose} />
       <Modal.Body>{t('modals.areYouSure')}</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleClose} disabled={isSubmitting}>
           {t('modals.cancel')}
         </Button>
         <Button variant="danger" onClick={handleSubmit} disabled={isSubmitting}>
