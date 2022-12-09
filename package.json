@@ -4,10 +4,9 @@
   "description": "[![Actions Status](https://github.com/AnastasiaKv/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/AnastasiaKv/frontend-project-12/actions)",
   "main": "src/index.js",
   "scripts": {
-    "start": "make start-backend",
-    "dev": "make start",
-    "postinstall": "make install",
-    "build": "make -C frontend build"
+    "start": "start-server -s ./frontend/build",
+    "build": "npm make -C frontend build",
+    "postinstall": "make -C frontend install"
   },
   "repository": {
     "type": "git",
@@ -18,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/AnastasiaKv/frontend-project-12/issues"
   },
-  "homepage": "https://github.com/AnastasiaKv/frontend-project-12#readme"
+  "homepage": "https://github.com/AnastasiaKv/frontend-project-12#readme",
+  "dependencies": {
+    "@hexlet/chat-server": "^1.1.6"
+  }
 }
