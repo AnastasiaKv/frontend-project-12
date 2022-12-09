@@ -1,19 +1,17 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import Channels from './Channels';
 import ChatRoom from './ChatRoom';
 import { useAuth } from '../hooks';
-import getModal from './modals/index.js';
+import Modal from './modals/Modal';
 import { fetchData } from '../slices/channelsSlice';
 
 const ChatPage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { getAuthHeader } = useAuth();
-  const { isOpened, type } = useSelector((state) => state.modal);
-  const Modal = getModal(type);
 
   useEffect(() => {
     const notify = (errorType) => toast.error(t(`errors.${errorType}`));
@@ -44,7 +42,7 @@ const ChatPage = () => {
           <ChatRoom />
         </div>
       </div>
-      { isOpened && <Modal />}
+      <Modal />
     </>
   );
 };
