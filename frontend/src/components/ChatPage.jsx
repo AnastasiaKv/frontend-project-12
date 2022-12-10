@@ -11,7 +11,7 @@ import { fetchData } from '../slices/channelsSlice';
 const ChatPage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { getAuthHeader } = useAuth();
+  const { logOut, getAuthHeader } = useAuth();
 
   useEffect(() => {
     const notify = (errorType) => toast.error(t(`errors.${errorType}`));
@@ -28,11 +28,12 @@ const ChatPage = () => {
       .catch((error) => {
         if (error.code === 401) {
           notify('unauthorized');
+          logOut();
         } else {
           notify(error.isAxiosError ? 'network' : 'unknown');
         }
       });
-  }, [dispatch, getAuthHeader, t]);
+  }, [dispatch, getAuthHeader, logOut, t]);
 
   return (
     <>
