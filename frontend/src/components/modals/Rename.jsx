@@ -4,7 +4,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
-import { useSocket } from '../../hooks';
+import { useApi } from '../../hooks';
 import { actions } from '../../slices/modalSlice';
 import ModalHeader from './ModalHeader';
 import { channelNameSchema } from '../../validationSchemas';
@@ -12,7 +12,7 @@ import { channelNameSchema } from '../../validationSchemas';
 const Rename = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { renameChannel } = useSocket();
+  const { renameChannel } = useApi();
   const inputRef = useRef();
   const { channels } = useSelector((state) => state.channelsInfo);
   const { channelId } = useSelector((state) => state.modal.extra);

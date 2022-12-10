@@ -7,7 +7,7 @@ import * as leoProfanity from 'leo-profanity';
 import { ToastContainer } from 'react-toastify';
 import resources from './locales/index.js';
 import { AuthProvider } from './contexts/AuthContext';
-import { SocketProvider } from './contexts/SocketContext';
+import { ApiProvider } from './contexts/ApiContext';
 import App from './components/App';
 import store from './slices/index';
 import setupRollbar from './rollbar';
@@ -32,12 +32,12 @@ const init = async (socket) => {
         <Provider store={store}>
           <RollbarProvider config={rollbarConfig}>
             <ErrorBoundary>
-              <SocketProvider socket={socket}>
+              <ApiProvider socket={socket}>
                 <AuthProvider>
                   <App />
                   <ToastContainer />
                 </AuthProvider>
-              </SocketProvider>
+              </ApiProvider>
             </ErrorBoundary>
           </RollbarProvider>
         </Provider>

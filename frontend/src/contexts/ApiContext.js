@@ -6,7 +6,7 @@ import { actions as messagesActions } from '../slices/messagesSlice';
 import { actions as channelsActions } from '../slices/channelsSlice';
 
 const DELAY = 3000;
-const SocketContext = createContext({});
+const ApiContext = createContext({});
 
 const withTimeoutAndAcknowledgement = (socket, event, data) => (
   new Promise((resolve, reject) => {
@@ -31,7 +31,7 @@ const withTimeoutAndAcknowledgement = (socket, event, data) => (
   })
 );
 
-const SocketProvider = ({ socket, children }) => {
+const ApiProvider = ({ socket, children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -61,10 +61,10 @@ const SocketProvider = ({ socket, children }) => {
   }), [sendMessage, createChannel, removeChannel, renameChannel]);
 
   return (
-    <SocketContext.Provider value={socketApi}>
+    <ApiContext.Provider value={socketApi}>
       {children}
-    </SocketContext.Provider>
+    </ApiContext.Provider>
   );
 };
 
-export { SocketContext, SocketProvider };
+export { ApiContext, ApiProvider };

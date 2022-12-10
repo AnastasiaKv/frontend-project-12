@@ -4,12 +4,12 @@ import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import * as filter from 'leo-profanity';
 import { ReactComponent as SentButton } from '../assets/sent_btn.svg';
-import { useAuth, useSocket } from '../hooks';
+import { useAuth, useApi } from '../hooks';
 import { messageSchema } from '../validationSchemas';
 
 const MessageForm = ({ channelId }) => {
   const { t } = useTranslation();
-  const { sendMessage } = useSocket();
+  const { sendMessage } = useApi();
   const inputRef = useRef();
   const { user: { username } } = useAuth();
 

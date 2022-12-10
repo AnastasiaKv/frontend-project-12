@@ -4,7 +4,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
-import { useSocket } from '../../hooks';
+import { useApi } from '../../hooks';
 import { actions as modalActions } from '../../slices/modalSlice';
 import { actions as channelActions } from '../../slices/channelsSlice';
 import ModalHeader from './ModalHeader';
@@ -13,7 +13,7 @@ import { channelNameSchema } from '../../validationSchemas';
 const Add = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { createChannel } = useSocket();
+  const { createChannel } = useApi();
   const inputRef = useRef();
   const channelsNames = useSelector((state) => state.channelsInfo.channels)
     .map((channel) => channel.name);

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { useSocket } from '../../hooks';
+import { useApi } from '../../hooks';
 import { actions } from '../../slices/modalSlice';
 import ModalHeader from './ModalHeader';
 
@@ -11,7 +11,7 @@ const Remove = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { removeChannel } = useSocket();
+  const { removeChannel } = useApi();
   const { channelId } = useSelector((state) => state.modal.extra);
 
   const handleClose = () => dispatch(actions.close());
