@@ -1,19 +1,14 @@
-# Slack chat
-
-## [Demo](https://slack-chat-hexlet-project.up.railway.app)<br>
-
-### Hexlet tests and linter status:
+# Slack chat ([Demo](https://slack-chat-hexlet-project.up.railway.app))
 
 [![Actions Status](https://github.com/AnastasiaKv/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/AnastasiaKv/frontend-project-12/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/fee232430a24c532c5c0/maintainability)](https://codeclimate.com/github/AnastasiaKv/frontend-project-12/maintainability)
 
-### Simplified SPA analogue of Slack chat built with React, socket.io and Redux Toolkit
+### Simplified SPA analogue of Slack chat built with React, Socket.IO and Redux Toolkit
 
 ### Features
 
 - Registration & Autorization of user
 - Channel management (add/ rename/ remove)
-- Message broadcasting
 - Push notifications
 - Filtering profanity
 
