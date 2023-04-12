@@ -34,7 +34,7 @@ const LoginPage = () => {
       password: '',
     },
     validationSchema: loginSchema(t),
-    onSubmit: (values) => {
+    onSubmit: (values, helpers) => {
       setAuthFailed(false);
       axios.post(routes.loginPath(), values)
         .then(({ data }) => {
@@ -42,6 +42,7 @@ const LoginPage = () => {
           navigate(routes.chatPage());
         })
         .catch((error) => {
+          helpers.setSubmitting(false);
           if (!error.isAxiosError) {
             notify('unknown');
             return;

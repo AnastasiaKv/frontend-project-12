@@ -56,7 +56,7 @@ const Channels = () => {
   );
 
   return (
-    <Col className="border-end pt-5 px-0 bg-light" xs="4" md="2">
+    <Col className="border-end pt-5 px-0 bg-light overflow-auto" xs="4" md="2">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
         <span>{t('chatPage.channels')}</span>
         <Button className="btn-group-vertical p-0 text-primary" variant="light" onClick={() => channelHandler('addChannel')}>

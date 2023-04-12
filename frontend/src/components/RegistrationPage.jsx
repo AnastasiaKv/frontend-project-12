@@ -35,7 +35,7 @@ const RegistrationPage = () => {
       passwordConfirm: '',
     },
     validationSchema: registrationSchema(t),
-    onSubmit: (values) => {
+    onSubmit: (values, helpers) => {
       setSignupFailed(false);
       const { username, password } = values;
       axios.post(routes.signupPath(), { username, password })
@@ -44,6 +44,7 @@ const RegistrationPage = () => {
           navigate(routes.chatPage());
         })
         .catch((error) => {
+          helpers.setSubmitting(false);
           if (!error.isAxiosError) {
             notify('unknown');
             return;

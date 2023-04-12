@@ -29,13 +29,14 @@ const Add = () => {
       name: '',
     },
     validationSchema: channelNameSchema(t, channelsNames),
-    onSubmit: async ({ name }) => {
+    onSubmit: async ({ name }, helpers) => {
       try {
         const { id } = await createChannel({ name });
         dispatch(channelActions.updateCurrentChannel({ id }));
         toast.success(t('notifications.channelCreated'));
         handleClose();
       } catch (error) {
+        helpers.setSubmitting(false);
         inputRef.current.select();
         console.log('Add new channel error: ', error);
       }

@@ -24,6 +24,7 @@ const Remove = () => {
       handleClose();
       setIsSubmitting(false);
     } catch (error) {
+      setIsSubmitting(false);
       console.log('Remove channel error: ', error);
     }
   };

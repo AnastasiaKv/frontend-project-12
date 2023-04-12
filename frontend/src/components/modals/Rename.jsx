@@ -32,12 +32,13 @@ const Rename = () => {
       name: channelName,
     },
     validationSchema: channelNameSchema(t, restChannelsNames),
-    onSubmit: async ({ name }) => {
+    onSubmit: async ({ name }, helpers) => {
       try {
         await renameChannel({ id: channelId, name });
         toast.success(t('notifications.channelRenamed'));
         handleClose();
       } catch (error) {
+        helpers.setSubmitting(false);
         inputRef.current.select();
         console.log('Rename channel error: ', error);
       }
